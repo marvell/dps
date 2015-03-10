@@ -2,6 +2,8 @@
 
 Удобное отображение Docker-контейнеров.
 
+![screenshot](http://a.ndr.su/5lxt9.png)
+
 ## Установка
 
 linux
