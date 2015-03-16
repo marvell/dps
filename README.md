@@ -1,6 +1,6 @@
-# DPS
-
-[![Latest Version](http://img.shields.io/github/release/marvell/dps.svg?style=flat-square)][release]
+DPS
+===
+[![Latest Version](http://img.shields.io/github/release/marvell/dps.svg?style=flat-square)](https://github.com/marvell/dps/releases)
 
 Удобное отображение Docker-контейнеров.
 
