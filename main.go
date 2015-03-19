@@ -13,11 +13,13 @@ import (
 var (
 	dockerClient *docker.Client
 
-	all bool
+	all     bool
+	verbose bool
 )
 
 func init() {
-	flag.BoolVar(&all, "a", false, "Show all containers.")
+	flag.BoolVar(&all, "a", false, "Show all containers")
+	flag.BoolVar(&verbose, "v", false, "Don't truncate the names")
 }
 
 func main() {
@@ -52,9 +54,19 @@ func main() {
 			os.Exit(1)
 		}
 
+		containerName := container.Names[0][1:]
+		if !verbose && len(containerName) > 30 {
+			containerName = containerName[:30] + "..."
+		}
+
+		containerImageName := container.Image
+		if !verbose && len(containerImageName) > 50 {
+			containerImageName = containerImageName[:50] + "..."
+		}
+
 		tableRow = append(tableRow, container.ID[0:12])
-		tableRow = append(tableRow, container.Names[0][1:])
-		tableRow = append(tableRow, container.Image)
+		tableRow = append(tableRow, containerName)
+		tableRow = append(tableRow, containerImageName)
 		tableRow = append(tableRow, ip)
 		tableRow = append(tableRow, colorStatus(container.Status))
 
