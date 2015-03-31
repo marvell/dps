@@ -54,7 +54,7 @@ func main() {
 			os.Exit(1)
 		}
 
-		containerName := container.Names[0][1:]
+		containerName := container.Names[len(container.Names)-1][1:]
 		if !verbose && len(containerName) > 30 {
 			containerName = containerName[:30] + "..."
 		}
