@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"strings"
 
 	"github.com/fsouza/go-dockerclient"
 	"github.com/marvell/tablewriter"
@@ -54,7 +55,18 @@ func main() {
 			os.Exit(1)
 		}
 
-		containerName := container.Names[len(container.Names)-1][1:]
+		var containerName string
+		if len(container.Names) > 1 {
+			for _, name := range container.Names {
+				containerName = strings.TrimLeft(name, "/")
+				if !strings.Contains(containerName, "/") {
+					break
+				}
+			}
+		} else {
+			containerName = strings.TrimLeft(container.Names[0], "/")
+		}
+
 		if !verbose && len(containerName) > 30 {
 			containerName = containerName[:30] + "..."
 		}
